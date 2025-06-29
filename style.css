@@ -1,0 +1,315 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+body {
+  font-family: 'Noto Sans JP', sans-serif;
+  background: #1a1a1a;
+  color: #fff;
+  line-height: 1.6;
+}
+.hero {
+  background:
+    linear-gradient(135deg, rgba(74,44,122,0.7), rgba(142,68,173,0.7)),
+    url("images/hero1.gif") center center / cover no-repeat;
+  min-height: unset;      /* 縦制限を解除 */
+  max-height: unset;      /* 縦制限を解除 */
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  padding: 20px;
+  position: relative;
+  overflow: hidden;
+  align-items: stretch;
+  z-index: 0;
+}
+.nav {
+  padding: 15px 0;
+  display: flex;
+  align-items: center;
+  position: relative;
+  z-index: 2147483647 !important; /* 最前面に */
+}
+
+/* ハンバーガーメニュー常に表示 */
+.menu-toggle {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  cursor: pointer;
+  width: 40px;
+  height: 40px;
+  position: fixed;      /* ← fixedに変更 */
+  top: 20px;            /* ← 画面上部に固定（必要に応じて調整） */
+  left: 20px;           /* ← 画面左に固定（必要に応じて調整） */
+  z-index: 2147483647;  /* ← 最大値で最前面に */
+}
+.menu-toggle span {
+  display: block;
+  height: 4px;
+  width: 28px;
+  margin: 5px 0;
+  background: #6e1515;
+  border-radius: 2px;
+  transition: 0.3s;
+}
+
+/* メニューを左寄せ＆ドロップダウン化 */
+.menu {
+  display: flex;
+  flex-direction: column;
+  position: fixed;
+  top: 60px;
+  left: 0;
+  background: #2a1e3c; /* 不透明色に */
+  border-radius: 8px;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.15);
+  padding: 10px 0;
+  min-width: 160px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s;
+  z-index: 2147483647;
+}
+.menu.open {
+  opacity: 1;
+  pointer-events: auto;
+  z-index: 2147483647;
+}
+.menu li {
+  margin: 0;
+  padding: 0 24px;
+  text-align: left;
+}
+.menu li a {
+  display: block;
+  padding: 12px 0;
+}
+.site-title {
+  display: block;
+  font-size: 1.7rem;
+  font-weight: 900;
+  color: #911a1a;
+  text-decoration: none;
+  letter-spacing: 0.1em;
+  margin: 0 auto;
+  background: none;
+  box-shadow: none;
+  border: none;
+  position: static;
+  z-index: 0;
+  transition: color 0.3s, background 0.3s;
+  text-align: center;
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: #911a1a;
+  background-image: linear-gradient(90deg, #911a1a 0%, #e74c3c 100%);
+  background-size: 200% auto;
+  background-position: left center;
+}
+
+.site-title:hover {
+  background-image: linear-gradient(90deg, #e74c3c 0%, #8e44ad 100%, #911a1a 100%);
+  background-size: 200% auto;
+  background-position: right center;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+  animation: gradientMove 1.2s linear infinite, shake 0.5s linear infinite;
+  transition: background-image 0.4s;
+}
+
+@keyframes gradientMove {
+  0% {
+    background-position: left center;
+  }
+  100% {
+    background-position: right center;
+  }
+}
+
+@keyframes shake {
+  0% { transform: translateX(0); }
+  20% { transform: translateX(-2px) rotate(-1deg);}
+  40% { transform: translateX(2px) rotate(1deg);}
+  60% { transform: translateX(-2px) rotate(-1deg);}
+  80% { transform: translateX(2px) rotate(1deg);}
+  100% { transform: translateX(0); }
+}
+.site-title,
+.hero-content {
+  position: relative;
+  z-index: 0; /* 低い値に */
+  background: none;      /* 背景を消す */
+  box-shadow: none;      /* 影を消す */
+  border: none;          /* 枠線を消す */
+}
+.hero-content {
+  text-align: center;
+  padding: 30px 20px;
+  backdrop-filter: blur(5px);
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 15px;
+  margin-top: 60px; /* 上部に余白を追加 */
+  position: relative;
+  z-index: 0; /* 1から0に変更して、.menuより後ろに */
+}
+.hero-content h1,
+.hero-content p {
+  position: relative;
+  opacity: 0;
+  animation: slideInRight 1s cubic-bezier(0.77,0,0.175,1) forwards;
+}
+.hero-content h1 {
+  animation-delay: 0.1s;
+  font-size: 2.8rem;      /* 文字を大きく */
+}
+.hero-content p {
+  animation-delay: 0.5s;
+  font-size: 1.4rem;      /* 文字を大きく */
+}
+@keyframes slideInRight {
+  0% {
+    transform: translateX(100vw);
+    opacity: 0;
+  }
+  60% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+.section {
+  padding: 40px 20px;
+  text-align: center;
+}
+.section h2 {
+  font-size: 2rem;
+  margin-bottom: 20px;
+}
+.section ul {
+  list-style: none;
+  padding-left: 0;
+  margin-left: 0;
+}
+.card-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  gap: 30px;
+  max-width: 700px;
+  margin: 40px auto;
+}
+.card, .card-grid-full .card {
+  background: rgba(255,255,255,0.35); /* 透明度を下げてより白く */
+  border-radius: 16px;
+  padding: 40px 0;
+  text-align: center;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #222; /* 文字色を濃くして視認性UP */
+  box-shadow: 0 4px 24px rgba(0,0,0,0.10);
+  transition: transform 0.2s, box-shadow 0.2s, background 0.2s;
+  min-height: 120px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  backdrop-filter: blur(6px); /* 背景ぼかしでクリア感UP */
+  border: 1.5px solid rgba(255,255,255,0.5); /* 薄い白枠で浮かせる */
+}
+.card:hover, .card-grid-full .card:hover {
+  background: rgba(255,255,255,0.55);
+  transform: translateY(-6px) scale(1.04);
+  box-shadow: 0 8px 32px rgba(0,0,0,0.18);
+}
+.fluid-shape-bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+.hero > *:not(.fluid-shape-bg) {
+  position: relative;
+  z-index: 0; /* 1 → 0 または auto に */
+}
+.card-grid-full {
+  width: 100%;
+  max-width: 900px;
+  height: auto;
+  min-height: 350px;
+  margin: 40px auto;
+  padding: 0 20px;
+  box-sizing: border-box;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  gap: 30px;
+}
+.card-grid-full .card {
+  min-height: 120px;
+  font-size: 1.5rem;
+}
+@media (max-width: 768px) {
+  .hero-content h1 { font-size: 2rem; }
+  .nav ul.menu { flex-direction: column; text-align: center; }
+  .nav ul.menu li { margin: 10px 0; }
+  .card-grid {
+    grid-template-columns: 1fr;
+    grid-template-rows: none;
+  }
+  .card {
+    padding: 30px 0;
+    font-size: 1.1rem;
+  }
+  .card-grid-full {
+    grid-template-columns: 1fr;
+    grid-template-rows: repeat(4, 1fr);
+    height: auto;
+    min-height: unset;
+    max-width: 100%;
+    margin: 20px 0;
+    padding: 0 10px;
+  }
+  .card-grid-full .card {
+    font-size: 1.1rem;
+    min-height: 80px;
+  }
+}
+#splash-logo {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  z-index: 9999;
+  background: linear-gradient(135deg, #4a2c7a, #8e44ad);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 5vw;
+  font-weight: 900;
+  color: #fff;
+  letter-spacing: 0.2em;
+  opacity: 1;
+  transition: opacity 0.8s, transform 1s;
+  pointer-events: none;
+}
+#splash-logo.hide {
+  opacity: 0;
+  transform: scale(0.2) translateY(-200px);
+  transition: opacity 0.8s, transform 1s;
+}
+.site-title,
+.hero-content {
+  position: relative;
+  z-index: 0; /* 低い値に */
+  background: none;      /* 背景を消す */
+  box-shadow: none;      /* 影を消す */
+  border: none;          /* 枠線を消す */
+}
